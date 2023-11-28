@@ -166,7 +166,7 @@ select {
 
 #methods {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     padding: 10px;
     text-align: right;
     color: rgb(255, 111, 0);
@@ -204,7 +204,7 @@ select {
     font-size: 30px;
 }
 
-.ri-close-line{
+.ri-close-line {
     border: 2px solid #f15c51;
     border-radius: 50%;
     cursor: pointer;
@@ -214,7 +214,7 @@ select {
     height: 25px;
 }
 
-.ri-check-line{
+.ri-check-line {
     border: 2px solid rgb(45, 219, 45);
     border-radius: 50%;
     cursor: pointer;
@@ -261,7 +261,7 @@ select {
 .delete-modal {
     display: flex;
     gap: 10px;
-    justify-content: end;
+    justify-content: flex-end;
     padding: 10px;
     width: auto;
     flex-wrap: nowrap;
@@ -323,5 +323,5 @@ select {
     user-select: none;
     -webkit-user-select: none;
     touch-action: manipulation;
-    
+
 }
