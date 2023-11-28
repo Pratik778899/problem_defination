@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import "./App.css"
+import "./App.css";
 
 const Card = ({ item, handleDelete, handleEdit }) => {
   const [editedItem, setEditedItem] = useState({ ...item });
   const [isEditing, setIsEditing] = useState(false);
   const [cardHeight, setCardHeight] = useState("80px");
   const [isChanged, setIsChanged] = useState(false);
+  const [arrow, setArrow] = useState(false);
 
   const handleFieldChange = (field, value) => {
     setIsChanged(true);
@@ -19,7 +20,7 @@ const Card = ({ item, handleDelete, handleEdit }) => {
 
   const handleFullNameChange = value => {
     setIsChanged(true);
-    const [firstName, ...rest] = value.split(" "); 
+    const [firstName, ...rest] = value.split(" ");
     const lastName = rest.join(" ");
     handleFieldChange("first", firstName);
     handleFieldChange("last", lastName);
@@ -59,6 +60,11 @@ const Card = ({ item, handleDelete, handleEdit }) => {
 
   const toggleCardHeight = () => {
     setCardHeight(cardHeight === "80px" ? "auto" : "80px");
+    if (cardHeight === "80px") {
+      setArrow(true);
+    } else {
+      setArrow(false);
+    }
   };
 
   const calculateAge = dob => {
@@ -107,7 +113,15 @@ const Card = ({ item, handleDelete, handleEdit }) => {
             )}
           </div>
           <div id="icon" onClick={toggleCardHeight}>
-            <h1>+</h1>
+            {arrow === false ? (
+              <h3>
+                <i class="ri-arrow-down-s-line"></i>
+              </h3>
+            ) : (
+              <h3>
+                <i class="ri-arrow-up-s-line"></i>
+              </h3>
+            )}
           </div>
         </div>
       </div>
@@ -170,14 +184,24 @@ const Card = ({ item, handleDelete, handleEdit }) => {
       <div id="methods">
         {isEditing && (
           <>
-            <h1 onClick={cancelEdit}><i className="ri-close-line"></i></h1>
-            {isChanged && <h1 onClick={saveEdit}><i className="ri-check-line"></i></h1>}
+            <h1 onClick={cancelEdit}>
+              <i className="ri-close-line"></i>
+            </h1>
+            {isChanged && (
+              <h1 onClick={saveEdit}>
+                <i className="ri-check-line"></i>
+              </h1>
+            )}
           </>
         )}
         {!isEditing && (
           <>
-            <h1 onClick={() => handleDelete(item.id)}><i className="ri-delete-bin-6-line"></i></h1>
-            <h1 onClick={toggleEdit}><i className="ri-pencil-line"></i></h1>
+            <h1 onClick={() => handleDelete(item.id)}>
+              <i className="ri-delete-bin-6-line"></i>
+            </h1>
+            <h1 onClick={toggleEdit}>
+              <i className="ri-pencil-line"></i>
+            </h1>
           </>
         )}
       </div>
