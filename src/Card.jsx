@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../src/App.css";
+import "./App.css";
 
 const Card = ({ item, handleDelete, handleEdit }) => {
   const [editedItem, setEditedItem] = useState({ ...item });
@@ -26,8 +26,7 @@ const Card = ({ item, handleDelete, handleEdit }) => {
   };
 
   const toggleCardHeight = () => {
-      setCardHeight(cardHeight === "80px" ? "auto" : "80px");
-    
+    setCardHeight(cardHeight === "80px" ? "auto" : "80px");
   };
 
   return (
@@ -119,9 +118,11 @@ const Card = ({ item, handleDelete, handleEdit }) => {
             <button onClick={toggleEdit}>Cancel</button>
           </>
         ) : (
-          <button onClick={toggleEdit}>Edit</button>
+          <>
+            <button onClick={toggleEdit}>Edit</button>
+            <button onClick={() => handleDelete(item.id)}>Delete</button>
+          </>
         )}
-        <button onClick={() => handleDelete(item.id)}>Delete</button>
       </div>
     </div>
   );

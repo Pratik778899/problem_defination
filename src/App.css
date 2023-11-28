@@ -1,98 +1,341 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: gilroy regular;
-}
-
 html,
 body {
     width: 100%;
     height: 100%;
+    position: relative;
+}
+
+#card {
+    background-color: #ffffff;
+    border: 1px solid #e1e1e1;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    transition: height 0.3s ease;
+    width: 30rem;
+
 }
 
 #wrapperContainer {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
 }
 
-#card {
-    border: 1px solid black;
+span {
+    color: #333;
+}
+
+#line {
+    display: flex;
+    justify-content: space-between;
+}
+
+#lineMain {
     display: flex;
     flex-direction: column;
-    width: 30%;
-    padding: 10px;
-    margin: 10px;
-    border-radius: 16px;
-    height: 85px;
-    overflow: hidden;
-}
-
-#imgContainer{
-    overflow: hidden;
-    height: 50px;
-    display: flex;
-    /* align-items: center; */
-    gap: 20px;
-    width: 300px;
-}
-
-#imgContainer h2{
-    margin-top: 10px;
-}
-
-#line{
-    display: flex;
     justify-content: space-between;
     padding: 10px;
 }
 
-#imgCont{
-    border: 1px solid black;
-    overflow: hidden;
+#imgContainer {
+    display: flex;
+    align-items: center;
+}
+
+#imgCont {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+}
+
+#imgCont img {
+    width: 100%;
+    height: 100%;
     border-radius: 50%;
 }
 
-#imgCont img{
-    height: 80px;
-    width: 50px;
-
-    /* border-radius: 50%; */
-    /* margin-left: -25px; */
+h2 {
+    font-size: 1.2rem;
+    color: #333;
 }
 
-#ageGenderCountry{
+#icon {
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+#icon h1 {
+    margin: 0;
+    /* height: 50px; */
+}
+
+#ageGenderCountry {
+    padding: 10px;
     display: flex;
     justify-content: space-between;
-    margin: 5px;
+    color: #F9F9F9;
+    gap: 50px;
 }
 
-#age{
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-}
 #genderMain{
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-}
-#country{
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-}
-#description{
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
+    margin-left: -40px;
+    margin-right: -20px;
+    width: 40%;
 }
 
-#methods{
-    margin: 10px;
+#description {
     display: flex;
-    justify-content: end;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    color: #F9F9F9;
     gap: 10px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+select {
+    width: 50%;
+    padding: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #e1e1e1;
+    border-radius: 5px;
+}
+
+#age input {
+    width: 75%;
+}
+
+#userType {
+    width: 110%;
+}
+
+#description {
+    padding: 10px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: auto;
+}
+
+#description label {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: auto;
+}
+
+#description input[type="text"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: 1px solid #e1e1e1;
+    border-radius: 4px;
+    font-size: 1rem;
+    color: #333;
+}
+
+#description span {
+    display: block;
+    padding: 10px;
+    border-radius: 4px;
+    color: #333;
+    font-size: 1rem;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    overflow-y: auto;
+    height: auto;
+    line-height: 1.5;
+    margin-bottom: 10px;
+}
+
+#methods {
+    display: flex;
+    gap: 10px;
+    justify-content: end;
+    padding: 10px;
+    text-align: right;
+    color: #F9F9F9;
+}
+
+#methods button {
+    padding: 5px 15px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#methods button:hover {
+    background-color: #e1e1e1;
+}
+
+/* Specific button styling */
+#methods button:nth-child(1) {
+    appearance: button;
+    backface-visibility: hidden;
+    background-color: #f9f9f9;
+    border-radius: 6px;
+    border-width: 0;
+    box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset, rgba(50, 50, 93, .1) 0 2px 5px 0, rgba(0, 0, 0, .07) 0 1px 1px 0;
+    box-sizing: border-box;
+    color: #000;
+    cursor: pointer;
+    font-family: -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Ubuntu, sans-serif;
+    font-size: 100%;
+    height: 44px;
+    line-height: 1.15;
+    margin: 12px 0 0;
+    outline: none;
+    overflow: hidden;
+    padding: 0 25px;
+    position: relative;
+    text-align: center;
+    text-transform: none;
+    transform: translateZ(0);
+    transition: all .2s, box-shadow .08s ease-in;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+#methods button:nth-child(2) {
+    appearance: button;
+    backface-visibility: hidden;
+    background-color: #f44336;
+    border-radius: 6px;
+    border-width: 0;
+    box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset, rgba(50, 50, 93, .1) 0 2px 5px 0, rgba(0, 0, 0, .07) 0 1px 1px 0;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    font-family: -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Ubuntu, sans-serif;
+    font-size: 100%;
+    height: 44px;
+    line-height: 1.15;
+    margin: 12px 0 0;
+    outline: none;
+    overflow: hidden;
+    padding: 0 25px;
+    position: relative;
+    text-align: center;
+    text-transform: none;
+    transform: translateZ(0);
+    transition: all .2s, box-shadow .08s ease-in;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+#searchMain {
+    display: flex;
+    justify-content: center;
+}
+
+#search {
+    width: 70%;
+    display: flex;
+    justify-content: center;
+}
+
+#search input {
+    margin-top: 20px;
+    padding: 10px 5px;
+}
+
+#delete-main-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.deleteMain {
+    /* width: 30%; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 16px;
+    filter: drop-shadow(5px 5px 17px #00000029);
+}
+
+.delete-modal {
+    display: flex;
+    gap: 10px;
+    justify-content: end;
+    padding: 10px;
+    width: auto;
+    flex-wrap: nowrap;
+    text-align: right;
+    /* color: #F9F9F9; */
+}
+
+.delete-modal button:nth-child(1) {
+    appearance: button;
+    backface-visibility: hidden;
+    background-color: #f9f9f9;
+    border-radius: 6px;
+    border-width: 0;
+    box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset, rgba(50, 50, 93, .1) 0 2px 5px 0, rgba(0, 0, 0, .07) 0 1px 1px 0;
+    box-sizing: border-box;
+    color: #000;
+    cursor: pointer;
+    font-family: -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Ubuntu, sans-serif;
+    font-size: 100%;
+    height: 44px;
+    line-height: 1.15;
+    margin: 12px 0 0;
+    outline: none;
+    overflow: hidden;
+    padding: 0 25px;
+    position: relative;
+    text-align: center;
+    text-transform: none;
+    transform: translateZ(0);
+    transition: all .2s, box-shadow .08s ease-in;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    /* width: 100%; */
+
+}
+
+.delete-modal button:nth-child(2) {
+    appearance: button;
+    backface-visibility: hidden;
+    background-color: #f44336;
+    border-radius: 6px;
+    border-width: 0;
+    box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset, rgba(50, 50, 93, .1) 0 2px 5px 0, rgba(0, 0, 0, .07) 0 1px 1px 0;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    font-family: -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Ubuntu, sans-serif;
+    font-size: 100%;
+    height: 44px;
+    line-height: 1.15;
+    margin: 12px 0 0;
+    outline: none;
+    overflow: hidden;
+    padding: 0 25px;
+    position: relative;
+    text-align: center;
+    text-transform: none;
+    transform: translateZ(0);
+    transition: all .2s, box-shadow .08s ease-in;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    /* width: 100%; */
 }
