@@ -1,32 +1,91 @@
-import React, { useState } from "react";
-import "./App.css";
+import React, { useState, useEffect } from "react";
+import "./App.css"
 
 const Card = ({ item, handleDelete, handleEdit }) => {
   const [editedItem, setEditedItem] = useState({ ...item });
   const [isEditing, setIsEditing] = useState(false);
   const [cardHeight, setCardHeight] = useState("80px");
+  const [isChanged, setIsChanged] = useState(false);
 
   const handleFieldChange = (field, value) => {
+    setIsChanged(true);
     setEditedItem(prevState => ({
       ...prevState,
       [field]: value,
     }));
   };
 
+  const fullName = `${editedItem.first} ${editedItem.last}`;
+
+  const handleFullNameChange = value => {
+    setIsChanged(true);
+    const [firstName, ...rest] = value.split(" "); 
+    const lastName = rest.join(" ");
+    handleFieldChange("first", firstName);
+    handleFieldChange("last", lastName);
+  };
+
   const toggleEdit = () => {
-    setIsEditing(!isEditing);
-    if (!isEditing) {
-      setEditedItem({ ...item });
+    const userAge = calculateAge(item.dob);
+    if (userAge >= 18) {
+      setIsEditing(!isEditing);
+      if (!isEditing) {
+        setEditedItem({ ...item });
+      }
+    } else {
+      alert("You can only edit if you are an adult!");
     }
   };
 
   const saveEdit = () => {
     handleEdit(item.id, editedItem);
     setIsEditing(false);
+    setIsChanged(false);
+  };
+
+  const cancelEdit = () => {
+    setIsEditing(false);
+    setEditedItem({ ...item });
+    setIsChanged(false);
+  };
+
+  useEffect(() => {
+    setIsChanged(!isEqual(item, editedItem));
+  }, [item, editedItem]);
+
+  const isEqual = (obj1, obj2) => {
+    return JSON.stringify(obj1) === JSON.stringify(obj2);
   };
 
   const toggleCardHeight = () => {
     setCardHeight(cardHeight === "80px" ? "auto" : "80px");
+  };
+
+  const calculateAge = dob => {
+    const birthDate = new Date(dob);
+    const today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+    if (
+      monthDiff < 0 ||
+      (monthDiff === 0 && today.getDate() < birthDate.getDate())
+    ) {
+      age--;
+    }
+    return age;
+  };
+
+  const [age, setAge] = useState(calculateAge(item.dob));
+
+  const handleAgeChange = value => {
+    const parsedAge = parseInt(value);
+    if (!isNaN(parsedAge)) {
+      setAge(parsedAge);
+      const currentYear = new Date().getFullYear();
+      handleFieldChange("dob", (currentYear - parsedAge).toString());
+    } else {
+      alert("Select The Age Or Press CTRL + A");
+    }
   };
 
   return (
@@ -35,19 +94,16 @@ const Card = ({ item, handleDelete, handleEdit }) => {
         <div id="line">
           <div id="imgContainer">
             <div id="imgCont">
-              <img
-                src="https://media.istockphoto.com/id/1163048590/photo/vampire-dracula-3d-cartoon-character-using-a-pair-of-infra-red-binoculars-3d-illustration.jpg?s=1024x1024&w=is&k=20&c=VUDieZefaDcv4SZ8VOAIyL3HdZCKm3N9kQ0yjsadZZQ="
-                alt={item.name}
-              />
+              <img src={item.picture} alt={item.name} />
             </div>
             {isEditing ? (
               <input
                 type="text"
-                value={editedItem.name}
-                onChange={e => handleFieldChange("name", e.target.value)}
+                value={fullName}
+                onChange={e => handleFullNameChange(e.target.value)}
               />
             ) : (
-              <h2>{item.name}</h2>
+              <h2>{item.first + " " + item.last}</h2>
             )}
           </div>
           <div id="icon" onClick={toggleCardHeight}>
@@ -61,11 +117,11 @@ const Card = ({ item, handleDelete, handleEdit }) => {
           {isEditing ? (
             <input
               type="text"
-              value={editedItem.Age}
-              onChange={e => handleFieldChange("Age", e.target.value)}
+              value={age}
+              onChange={e => handleAgeChange(e.target.value)}
             />
           ) : (
-            <span>{item.Age}</span>
+            <span>{`${age} Year`}</span>
           )}
         </div>
         <div id="genderMain">
@@ -104,23 +160,24 @@ const Card = ({ item, handleDelete, handleEdit }) => {
         {isEditing ? (
           <input
             type="text"
-            value={editedItem.Description}
-            onChange={e => handleFieldChange("Description", e.target.value)}
+            value={editedItem.description}
+            onChange={e => handleFieldChange("description", e.target.value)}
           />
         ) : (
-          <span>{item.Description}</span>
+          <span>{item.description}</span>
         )}
       </div>
       <div id="methods">
-        {isEditing ? (
+        {isEditing && (
           <>
-            <button onClick={saveEdit}>Save</button>
-            <button onClick={toggleEdit}>Cancel</button>
+            <h1 onClick={cancelEdit}><i className="ri-close-line"></i></h1>
+            {isChanged && <h1 onClick={saveEdit}><i className="ri-check-line"></i></h1>}
           </>
-        ) : (
+        )}
+        {!isEditing && (
           <>
-            <button onClick={toggleEdit}>Edit</button>
-            <button onClick={() => handleDelete(item.id)}>Delete</button>
+            <h1 onClick={() => handleDelete(item.id)}><i className="ri-delete-bin-6-line"></i></h1>
+            <h1 onClick={toggleEdit}><i className="ri-pencil-line"></i></h1>
           </>
         )}
       </div>

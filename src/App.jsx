@@ -1,66 +1,13 @@
 import React, { useState } from "react";
 import Card from "./Card";
 import "./App.css";
+import celebrities from "./celebrities.json";
 
 const App = () => {
-  const initialData = [
-    {
-      id: 1,
-      name: `Hello World`,
-      Age: `19 Years`,
-      gender: `Rather Not To Say`,
-      country: `India`,
-      Description: `Lorem ipsum dolor sit amet consectetur, adipisicing elit...`,
-      searchQuery: "",
-    },
-    {
-      id: 2,
-      name: `Vicky`,
-      Age: `19 Years`,
-      gender: `Rather Not To Say`,
-      country: `India`,
-      Description: `Lorem ipsum dolor sit amet consectetur, adipisicing elit...`,
-      searchQuery: "",
-    },
-    {
-      id: 3,
-      name: `Munawar`,
-      Age: `19 Years`,
-      gender: `Rather Not To Say`,
-      country: `India`,
-      Description: `Lorem ipsum dolor sit amet consectetur, adipisicing elit...`,
-      searchQuery: "",
-    },
-  ];
-
-  const [data, setData] = useState(initialData);
-  const [searchTerm, setSearchTerm] = useState("");
-
-  const handleSearch = e => {
-    const newSearchTerm = e.target.value.toLowerCase();
-    setSearchTerm(newSearchTerm);
-    const updatedData = initialData.map(item => ({
-      ...item,
-      searchQuery: newSearchTerm,
-    }));
-    setData(updatedData);
-  };
-
-  // const handleDelete = id => {
-  //   const confirmDelete = window.confirm(
-  //     "Are you sure you want to delete this card?"
-  //   );
-  //   if (confirmDelete) {
-  //     const updatedData = data.filter(item => item.id !== id);
-  //     setData(updatedData);
-  //     alert("The card has been deleted");
-  //   } else {
-  //     alert("Delete operation cancelled");
-  //   }
-  // };
-
+  const [data, setData] = useState(celebrities);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [idToDelete, setIdToDelete] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const handleDelete = id => {
     setIdToDelete(id);
@@ -83,9 +30,17 @@ const App = () => {
     );
   };
 
-  const filteredData = data.filter(
-    item => !searchTerm || item.name.toLowerCase().includes(item.searchQuery)
-  );
+  const handleSearch = e => {
+    const searchTerm = e.target.value.toLowerCase();
+    setSearchTerm(searchTerm);
+
+    const filteredData = celebrities.filter(
+      item =>
+        item.first.toLowerCase().includes(searchTerm) ||
+        item.last.toLowerCase().includes(searchTerm)
+    );
+    setData(filteredData);
+  };
 
   return (
     <>
@@ -100,8 +55,8 @@ const App = () => {
         </div>
       </div>
       <div id="wrapperContainer">
-        {filteredData.length > 0 ? (
-          filteredData.map(item => (
+        {data.length > 0 ? (
+          data.map(item => (
             <Card
               key={item.id}
               item={item}
